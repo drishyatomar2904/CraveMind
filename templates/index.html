@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CraveMind</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Welcome to CraveMind</h1>
+    <p>Type your current food craving or feeling below:</p>
+
+    <form action="/result" method="post">
+        <input type="text" name="user_input" placeholder="e.g. I feel anxious and want something sweet">
+        <button type="submit">Find My Craving</button>
+    </form>
+</body>
+</html>
