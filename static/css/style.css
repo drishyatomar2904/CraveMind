@@ -1,10 +1,399 @@
+:root {
+    --primary: #e85a4f;
+    --primary-dark: #d04b40;
+    --secondary: #7ec8e3;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --success: #4caf50;
+    --warning: #ff9800;
+    --danger: #f44336;
+    --card-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --badge-emotional: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    --badge-physical: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+    --badge-psychological: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(rgba(255, 253, 250, 0.9), rgba(255, 253, 250, 0.9)), 
+                url('/static/images/craving-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 20px auto;
+}
+
+header {
     text-align: center;
-    margin-top: 50px;
-    background-color: #fffbe6;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #e85a4f 0%, #ff7e5f 100%);
+    color: white;
+    position: relative;
 }
-input, button {
-    padding: 10px;
-    margin: 10px;
+
+header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Hero section */
+.hero {
+    padding: 50px 20px;
+    text-align: center;
+    background: #fffaf8;
+}
+
+.hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: #e85a4f;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 30px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form {
+    max-width: 700px;
+    margin: 0 auto 40px;
+}
+
+textarea {
+    width: 100%;
+    padding: 20px;
+    font-size: 1.1rem;
+    border-radius: 15px;
+    border: 2px solid #eee;
+    min-height: 150px;
+    resize: vertical;
+    transition: var(--transition);
+    font-family: 'Poppins', sans-serif;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(126, 200, 227, 0.2);
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(232, 90, 79, 0.3);
+}
+
+button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(232, 90, 79, 0.4);
+}
+
+.view-recipe-btn {
+    background: #5a2a9e;
+    margin-top: 15px;
+}
+
+.view-recipe-btn:hover {
+    background: #4a1a8e;
+}
+
+.examples {
+    background: #f9f5f3;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.examples p {
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+.examples ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.examples li {
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 25px;
+}
+
+.examples li::before {
+    content: "•";
+    color: var(--primary);
+    position: absolute;
+    left: 0;
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+/* Features section */
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    flex: 1;
+    min-width: 250px;
+    max-width: 350px;
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+    border-top: 4px solid var(--primary);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.feature-card .icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+/* Result page styles */
+.result-container {
+    padding: 40px;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    color: var(--primary);
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 30px;
+    transition: var(--transition);
+}
+
+.back-btn:hover {
+    transform: translateX(-5px);
+}
+
+.user-craving, .ai-insight, .ai-suggestion, .api-section {
+    margin-bottom: 40px;
+}
+
+.user-craving h2, .ai-insight h2, .ai-suggestion h2, .api-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.craving-card, .insight-card, .suggestion-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.craving-card {
+    border-left: 5px solid var(--secondary);
+}
+
+.insight-card {
+    border-left: 5px solid #ff9a9e;
+    background: linear-gradient(to right, #ffffff 0%, #fff9f9 100%);
+}
+
+.suggestion-card {
+    border-left: 5px solid #96e6a1;
+    background: linear-gradient(to right, #ffffff 0%, #f9fffa 100%);
+}
+
+.craving-card p, .insight-card p, .suggestion-card p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+.api-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.api-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.api-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.api-card h3 {
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.api-content {
+    margin-top: auto;
+    padding-top: 15px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.author {
+    font-style: italic;
+    color: #666;
+    margin-top: 10px;
+}
+
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--primary);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 10px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Badge styles */
+.craving-type-badge {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-top: 15px;
+    background: var(--badge-emotional);
+    color: #333;
+    font-weight: 500;
+}
+
+.error {
+    color: #e85a4f;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 25px;
+    background: #f9f9f9;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .features {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .feature-card {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .api-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .result-container {
+        padding: 20px;
+    }
+    
+    .recipe-header {
+        flex-direction: column;
+    }
+    
+    .recipe-header img {
+        width: 100%;
+        height: auto;
+    }
+}
+

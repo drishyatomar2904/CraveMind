@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+
+{% block title %}CraveMind Insight{% endblock %}
+
+{% block head %}
+<style>
+    .craving-type-badge {
+        display: inline-block;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        margin-left: 10px;
+        background: var(--badge-bg);
+        color: var(--badge-color);
+    }
+    
+    /* Modal styles */
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+    
+    .modal-content {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        max-width: 800px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+    }
+    
+    .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    
+    .recipe-header {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .recipe-header img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    
+    .recipe-meta {
+        flex: 1;
+    }
+    
+    .recipe-section {
+        margin-bottom: 20px;
+    }
+    
+    .instructions p {
+        margin-bottom: 10px;
+    }
+    
+    .api-icon {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+    
+    .yesno-gif {
+        max-width: 150px;
+        border-radius: 10px;
+        margin-top: 10px;
+        display: block;
+    }
+    
+    .loader {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid var(--primary);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    .error {
+        color: #e85a4f;
+        font-style: italic;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="result-container">
+    <a href="{{ url_for('home') }}" class="back-btn">← New Reflection</a>
+    
+    <div class="user-craving">
+        <h2>Your Reflection</h2>
+        <div class="craving-card">
+            <p>{{ craving }}</p>
+            <span class="craving-type-badge">{{ craving_type|capitalize }}</span>
+        </div>
+    </div>
+    
+    <div class="ai-insight">
+        <h2>CraveMind Insight</h2>
+        <div class="insight-card">
+            <p>{{ insight }}</p>
+        </div>
+    </div>
+    
+    <div class="ai-suggestion">
+        <h2>Mindful Suggestion</h2>
+        <div class="suggestion-card">
+            <p>{{ suggestion }}</p>
+            {% if recipe_suggestion %}
+            <div class="recipe-suggestion">
+                <p>Try making: <strong>{{ recipe_suggestion }}</strong></p>
+                <button class="view-recipe-btn" data-meal="{{ recipe_suggestion }}">Get Recipe</button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="api-section">
+        <h2>Emotional Support & Distractions</h2>
+        <div class="api-grid">
+            <div class="api-card" id="zen-quote">
+                <div class="api-icon">🧘</div>
+                <h3>Mindfulness Quote</h3>
+                <div class="api-content">
+                    <div class="loader"></div>
+                    <p>Loading wisdom...</p>
+                </div>
+            </div>
+            <div class="api-card" id="advice-slip">
+                <div class="api-icon">💡</div>
+                <h3>Wise Advice</h3>
+                <div class="api-content">
+                    <div class="loader"></div>
+                    <p>Loading guidance...</p>
+                </div>
+            </div>
+            <div class="api-card" id="cat-fact">
+                <div class="api-icon">🐱</div>
+                <h3>Purrfect Distraction</h3>
+                <div class="api-content">
+                    <div class="loader"></div>
+                    <p>Loading feline wisdom...</p>
+                </div>
+            </div>
+            <div class="api-card" id="yes-no">
+                <div class="api-icon">✅</div>
+                <h3>Should You Act On It?</h3>
+                <div class="api-content">
+                    <div class="loader"></div>
+                    <p>Seeking clarity...</p>
+                </div>
+            </div>
+            <div class="api-card" id="kanye-quote">
+                <div class="api-icon">🎤</div>
+                <h3>Creative Interruption</h3>
+                <div class="api-content">
+                    <div class="loader"></div>
+                    <p>Channeling creativity...</p>
+                </div>
+            </div>
+            <div class="api-card" id="useless-fact">
+                <div class="api-icon">🤯</div>
+                <h3>Useless Knowledge</h3>
+                <div class="api-content">
+                    <div class="loader"></div>
+                    <p>Gathering trivia...</p>
+                </div>
+            </div>
+            <div class="api-card" id="stoic-quote">
+                <div class="api-icon">🏛️</div>
+                <h3>Stoic Wisdom</h3>
+                <div class="api-content">
+                    <div class="loader"></div>
+                    <p>Reflecting on virtue...</p>
+                </div>
+            </div>
+            <div class="api-card" id="bored-api">
+                <div class="api-icon">🎯</div>
+                <h3>Crave Breaker Activity</h3>
+                <div class="api-content">
+                    <div class="loader"></div>
+                    <p>Finding activities...</p>
+                </div>
+            </div>
+            <div class="api-card" id="random-recipe">
+                <div class="api-icon">🍳</div>
+                <h3>Random Recipe</h3>
+                <div class="api-content">
+                    <div class="loader"></div>
+                    <p>Discovering meals...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/crave-apis.js') }}"></script>
+<script>
+    // Add event listener for recipe buttons
+    document.querySelectorAll('.view-recipe-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const mealName = this.getAttribute('data-meal');
+            fetchMealDetails(mealName);
+        });
+    });
+</script>
+{% endblock %}
+

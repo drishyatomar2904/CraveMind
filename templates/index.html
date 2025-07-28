@@ -1,16 +1,45 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>CraveMind</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <h1>Welcome to CraveMind</h1>
-    <p>Type your current food craving or feeling below:</p>
+{% extends "base.html" %}
 
-    <form action="/result" method="post">
-        <input type="text" name="user_input" placeholder="e.g. I feel anxious and want something sweet">
-        <button type="submit">Find My Craving</button>
-    </form>
-</body>
-</html>
+{% block title %}Reflect on Your Cravings{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <div class="hero-content">
+        <h2>What's on your mind and palate?</h2>
+        <p>Share your craving, mood, or emotional state</p>
+        
+        <form action="/result" method="post">
+            <textarea name="user_input" placeholder="e.g. I'm feeling anxious and craving chocolate..." required></textarea>
+            <button type="submit">Reflect & Nourish</button>
+        </form>
+        
+        <div class="examples">
+            <p>Examples to try:</p>
+            <ul>
+                <li>"I'm stressed and want something crunchy"</li>
+                <li>"Feeling lonely and craving ice cream"</li>
+                <li>"Bored and wanting to snack mindlessly"</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="features">
+    <div class="feature-card">
+        <div class="icon">🧠</div>
+        <h3>Emotional Insight</h3>
+        <p>Understand the feelings behind your cravings</p>
+    </div>
+    <div class="feature-card">
+        <div class="icon">🍽️</div>
+        <h3>Mindful Suggestions</h3>
+        <p>Get nourishing alternatives tailored to your mood</p>
+    </div>
+    <div class="feature-card">
+        <div class="icon">💖</div>
+        <h3>Compassionate Support</h3>
+        <p>Gentle guidance without judgment</p>
+    </div>
+</div>
+{% endblock %}
+
